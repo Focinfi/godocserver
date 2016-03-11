@@ -11,6 +11,7 @@ go get github.com/Focinfi/godocserver
 ### Change Directory To godocserver
 
 ```shell
+cd $GOPATH/src/github.com/Focinfi/godocserver
 ```
 
 ### Generate Document
