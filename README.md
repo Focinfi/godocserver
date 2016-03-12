@@ -1,5 +1,12 @@
 ## godocserver
 
+**Note**: `godoc` has already provided a server for documents of all golang packages. so you can follows:
+
+1. `go get golang.org/x/tools/cmd/godoc`
+2. `godoc -http=:6060`, then you can vist localhost:6060
+
+As a result, `godoc` is already enough. But this brefore building this project, I don't know that.
+
 This package aims to build simple golang html document server.
 
 `godoc -html strings` can build a html document for package strings, so that we can build some static files for reading documents offline.
