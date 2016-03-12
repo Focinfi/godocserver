@@ -1,16 +1,24 @@
 require 'open3'
+require 'json'
 
 task default: :hello
 
 desc "Say hello"
 task :hello  do
-  puts all_go_builtin_pkgs "ENV['GOROOT']"
+  puts GODOC_HEADER.sub("pkgname", "strings")
 end
 
 def all_go_builtin_pkgs go_root_src_path
   Dir.glob("#{go_root_src_path}**/*/").map { |pkg| pkg[go_root_src_path.length...-1] }.select { |pkg| !pkg.match(/builtin|cmd|go|debug|vendor|testdata/) }.to_a
 end
 
+def all_generated_doucments
+  Dir.glob("**/*").select { |pkg| pkg.match("\.html$") }.map { |pkg| pkg["public/pkg/".length...".html".length * -1] }
+end
+
+def update_all_generated_doucments_json
+  File.open("./public/all_documents.json", "w") { |file| file.write all_generated_doucments.to_json }
+end
 
 def pkg_path_of(pkg)
   "#{Dir.pwd}/public/pkg/#{pkg}.html"
@@ -28,7 +36,7 @@ def generate(pkg)
   end
 
   File.open(pkg_path_of(pkg), "w+") do |file|
-    file.write GODOC_HEADER
+    file.write GODOC_HEADER.sub("pkgname", pkg)
     loop do 
       output = stdout.gets
       if output 
@@ -40,6 +48,7 @@ def generate(pkg)
   end 
 
   puts "generated #{pkg}"
+  update_all_generated_doucments_json
 end
 
 GODOC_HEADER = 
@@ -49,6 +58,39 @@ GODOC_HEADER =
   <script type="text/javascript" src="/jquery.treeview.js"></script>
   <script type="text/javascript" src="/jquery.treeview.edit.js"></script>
   <script type="text/javascript" src="/godoc.js"></script>
+  <script type="text/javascript" src="/vue.min.js"></script>
+  <div id="pkg-nav">
+    <div class="collapsed">
+      <h2>pkgname
+      <button @click="toggleNavTable">{{ showNavTable ? "^" : "v" }} </button>
+      </h2>
+      <div v-if="showNavTable" id="nav-table">
+        <input id="pkg-input" v-model="pkgToNav" placeholder="Go to another package"></input>
+        <ul>
+          <li v-for="pkg in pkgs | filterBy pkgToNav">
+            <a href="/pkg/{{ pkg }}.html">{{ pkg }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    $.getJSON("/all_documents.json", function(pkgs) { 
+      new Vue({
+        el: "#pkg-nav",
+        data: {
+          pkgToNav: "",
+          showNavTable: false,
+          pkgs: pkgs
+        },
+        methods: {
+          toggleNavTable: function () {
+            this.showNavTable = this.showNavTable ? false : true
+          }
+        }
+      })
+    })
+  </script>
   '
 
 GO_BUILT_IN_PKG = [
@@ -201,8 +243,6 @@ desc "Generate the docunment given named pkg"
 task :generate_document, [:pkg] do |t, args|
   generate(args[:pkg])  
 end
-
-
 
 desc "Generate all ocument"
 task :generate_all_document do

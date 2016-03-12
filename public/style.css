@@ -181,31 +181,92 @@ div#footer {
   margin: 40px 0;
 }
 
+div#pkg-nav {
+  margin: -40px -20px;
+  position: fixed;
+  width: 100%;
+  box-shadow: 0px 2px 2px gray;
+}
+
+div#pkg-nav #nav-table {
+  padding-left: 45%;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.95);
+}
+
+div#pkg-nav #nav-table #pkg-input {
+  color: black;
+  font-size: 18px;
+  padding: 5px;
+  position: fixed;
+  margin-top: 10px;
+  border: 1px solid #375EAB;
+  border-radius: 3px;
+}
+
+
+div#pkg-nav #nav-table ul {
+  margin: 45px 0px;
+  padding: 0px;
+  height: 100%;
+  overflow: scroll;
+}
+
+
+div#pkg-nav #nav-table li {
+  background: rgba(255,255,255,0.95);
+  list-style: none;
+}
+
+div#pkg-nav #nav-input {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+div#pkg-nav h2 {
+  margin: 0px;
+  color: black;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 30px;
+}
+
 div#short-nav {
   margin-top: 40px;
 }
 
 div#pkg-index {
   position: fixed;
+  margin-left: 70%;
   top: -20;
   left: 0;
-  width: 100%;
+  width: 30%;
   height: 100%;
   overflow: scroll;
 }
 
+div#pkg-index .expanded {
+  box-shadow: 0px 2px 2px gray;
+}
+
 div#pkg-index h2 {
-  margin-bottom: 0
+  width: 100%;
+  position: fixed;
+  margin-bottom: 0;
+}
+
+div#pkg-index #manual-nav {
+  padding-top: 50px;
+  color: black;
+  background-color: rgba(255,255,255,0.95);
 }
 
 div#pkg-index dl {
   margin: 0;
   padding: 20px;
-}
-
-div#pkg-index #manual-nav {
-  color: black;
-  background-color: rgba(255,255,255,0.95);
 }
 
 div#pkg-index #pkg-examples{
@@ -214,7 +275,8 @@ div#pkg-index #pkg-examples{
 }
 
 div#pkg-index h4, p {
-  margin: 0 20px;
+  margin: 0 0px;
+  padding-left: 10px;
   background-color: rgba(255,255,255,0.95);
 }
 
