@@ -4,9 +4,9 @@ This package aims to build simple golang html document server.
 
 `godoc -html strings` can build a html document for package strings, so that we can build some static files for reading documents offline.
 
-`godocserver` using ruby to do most work like running shell script, finding packages, writing files, and using golang to start a static server.
+`godocserver` uses ruby to do most work like running shell script, finding packages, writing files, and using golang to start a static server.
 
-Although this `godocserver` doesn't has many features like golang.org/pkg, with the power of vue.js and some changes of style.css, it is competent for providing well formatted golang document and package navigation.
+Although `godocserver` doesn't has many features like golang.org/pkg, with the power of vue.js and some changes of style.css, it is competent for providing well formatted golang document and package navigation.
 
 ### Screenshots
 Index 

@@ -65,7 +65,7 @@ GODOC_HEADER =
       <button @click="toggleNavTable">{{ showNavTable ? "^" : "v" }} </button>
       </h2>
       <div v-if="showNavTable" id="nav-table">
-        <input id="pkg-input" v-model="pkgToNav" placeholder="Go to another package"></input>
+        <input id="pkg-input" @keyup.enter="goToPackage" v-model="pkgToNav" placeholder="Go to another package"></input>
         <ul>
           <li v-for="pkg in pkgs | filterBy pkgToNav">
             <a href="/pkg/{{ pkg }}.html">{{ pkg }}</a>
@@ -86,6 +86,9 @@ GODOC_HEADER =
         methods: {
           toggleNavTable: function () {
             this.showNavTable = this.showNavTable ? false : true
+          },
+          goToPackage: function () {
+            window.location.replace("/pkg/" + this.pkgToNav + ".html")
           }
         }
       })
